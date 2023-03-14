@@ -1,17 +1,25 @@
-import { Selector } from 'testcafe';
+import { Selector } from "testcafe";
 
-const XPathSelector = Selector(xpath => {
-    const iterator = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_ITERATOR_TYPE, null);
-    const items = [];
+const elementByXPath = Selector((xpath) => {
+  const iterator = document.evaluate(
+    xpath,
+    document,
+    null,
+    XPathResult.UNORDERED_NODE_ITERATOR_TYPE,
+    null
+  );
+  const items = [];
 
-    let item = iterator.iterateNext();
+  let item = iterator.iterateNext();
 
-    while (item) {
-        items.push(item);
-        item = iterator.iterateNext();
-    }
+  while (item) {
+    items.push(item);
+    item = iterator.iterateNext();
+  }
 
-    return items;
+  return items;
 });
-export default XPathSelector
-// export default XPathSelector =  Selector(getElementsByXPath(xpath))
+
+export default function (xpath: string) {
+  return Selector(elementByXPath(xpath));
+}
